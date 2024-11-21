@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrik-Test</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #FF6347; /* Warmes Orange-Rot für eine freundliche Note */
+            margin-top: 50px;
+        }
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .question {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px auto;
+            padding: 15px;
+            width: 80%;
+            max-width: 600px;
+        }
+        .question p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #FF6347;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            width: 80%;
+            max-width: 250px;
+            display: block;
+            margin: 30px auto;
+        }
+        button:hover {
+            background-color: #ff7f50; /* Etwas helleres Orange bei Hover */
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .incorrect {
+            background-color: #f44336;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .definition {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffebcd;
+            border: 1px solid #f4a460;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            color: #FF6347;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .positiveEffect {
+            animation: positiveEffect 2s ease-in-out;
+        }
+
+        .encouragingEffect {
+            animation: encouragingEffect 2s ease-in-out;
+        }
+
+        @keyframes positiveEffect {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes encouragingEffect {
+            0% {
+                transform: rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: rotate(360deg);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        #results {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lyrik-Test</h1>
+    <p>Teste dein Wissen über Lyrik! Beantworte die Fragen und finde heraus, wie gut du dich auskennst.</p>
+
+    <form id="lyrikTest">
+        <div class="question">
+            <p>1. Welche Textform gehört zur Lyrik?</p>
+            <input type="radio" id="frage1a" name="q1" value="0">
+            <label for="frage1a">Roman</label><br>
+            <input type="radio" id="frage1b" name="q1" value="1">
+            <label for="frage1b">Gedicht</label><br>
+            <input type="radio" id="frage1c" name="q1" value="0">
+            <label for="frage1c">Zeitungsartikel</label>
+        </div>
+
+        <div class="question">
+            <p>2. Was ist ein Reim?</p>
+            <input type="radio" id="frage2a" name="q2" value="1">
+            <label for="frage2a">Wörter, die sich am Ende ähnlich klingen</label><br>
+            <input type="radio" id="frage2b" name="q2" value="0">
+            <label for="frage2b">Ein langer Text ohne Struktur</label><br>
+            <input type="radio" id="frage2c" name="q2" value="0">
+            <label for="frage2c">Ein Titel eines Gedichts</label>
+        </div>
+
+        <div class="question">
+            <p>3. Wofür wird Lyrik oft verwendet?</p>
+            <input type="radio" id="frage3a" name="q3" value="0">
+            <label for="frage3a">Um wissenschaftliche Ergebnisse zu präsentieren</label><br>
+            <input type="radio" id="frage3b" name="q3" value="1">
+            <label for="frage3b">Um Gefühle und Gedanken auszudrücken</label><br>
+            <input type="radio" id="frage3c" name="q3" value="0">
+            <label for="frage3c">Um Geschichten zu erzählen</label>
+        </div>
+
+        <div class="question">
+            <p>4. Was ist ein <span class="highlight" onclick="toggleDefinition('sonettDef')">Sonett</span>?</p>
+            <input type="radio" id="frage4a" name="q4" value="1">
+            <label for="frage4a">Ein Gedicht mit 14 Versen und festem Reimschema</label><br>
+            <input type="radio" id="frage4b" name="q4" value="0">
+            <label for="frage4b">Ein Gedicht mit 10 Versen ohne Reime</label><br>
+            <input type="radio" id="frage4c" name="q4" value="0">
+            <label for="frage4c">Ein japanisches Kurzgedicht</label>
+        </div>
+
+        <div class="question">
+            <p>5. Was ist ein <span class="highlight" onclick="toggleDefinition('haikuDef')">Haiku</span>?</p>
+            <input type="radio" id="frage5a" name="q5" value="1">
+            <label for="frage5a">Ein japanisches Kurzgedicht mit 17 Silben</label><br>
+            <input type="radio" id="frage5b" name="q5" value="0">
+            <label for="frage5b">Ein Gedicht mit 20 Versen</label><br>
+            <input type="radio" id="frage5c" name="q5" value="0">
+            <label for="frage5c">Ein Gedicht, das aus drei Strophen besteht</label>
+        </div>
+
+        <div class="question">
+            <p>6. Was ist ein <span class="highlight" onclick="toggleDefinition('alexandrinDef')">Alexandriner</span>?</p>
+            <input type="radio" id="frage6a" name="q6" value="1">
+            <label for="frage6a">Ein Versmaß mit 12 Silben</label><br>
+            <input type="radio" id="frage6b" name="q6" value="0">
+            <label for="frage6b">Ein Gedicht mit einem freien Versmaß</label><br>
+            <input type="radio" id="frage6c" name="q6" value="0">
+            <label for="frage6c">Ein Gedicht mit 14 Versen</label>
+        </div>
+
+        <div class="question">
+            <p>7. Was beschreibt der Begriff <span class="highlight" onclick="toggleDefinition('metapherDef')">Metapher</span>?</p>
+            <input type="radio" id="frage7a" name="q7" value="1">
+            <label for="frage7a">Ein bildlicher Ausdruck, der etwas anderes bedeutet</label><br>
+            <input type="radio" id="frage7b" name="q7" value="0">
+            <label for="frage7b">Die Wiederholung von Lauten am Anfang von Wörtern</label><br>
+            <input type="radio" id="frage7c" name="q7" value="0">
+            <label for="frage7c">Eine Erzählform ohne Reime</label>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Ergebnisse anzeigen</button>
+    </form>
+
+    <div id="results"></div>
+
+    <!-- Definitionen -->
+    <div id="sonettDef" class="definition">
+        Ein Sonett ist ein Gedicht mit 14 Versen, das in der Regel ein festes Reimschema (ABAB CDCD EFEF GG) hat.
+    </div>
+    <div id="haikuDef" class="definition">
+        Ein Haiku ist ein japanisches Kurzgedicht, das aus 17 Silben besteht, aufgeteilt in drei Zeilen von 5, 7 und 5 Silben.
+    </div>
+    <div id="alexandrinDef" class="definition">
+        Der Alexandriner ist ein Versmaß mit 12 Silben, das oft in der französischen Lyrik verwendet wird.
+    </div>
+    <div id="metapherDef" class="definition">
+        Eine Metapher ist ein bildlicher Ausdruck, der ein Wort oder eine Phrase mit einer anderen Bedeutung verwendet.
+    </div>
+
+    <script>
+        // Die Definitionen anzeigen/verbergen
+        function toggleDefinition(id) {
+            var def = document.getElementById(id);
+            if (def.style.display === "none") {
+                def.style.display = "block";
+            } else {
+                def.style.display = "none";
+            }
+        }
+
+        // Ergebnisse anzeigen und Punkte zählen
+        function submitQuiz() {
+            var score = 0;
+            var totalQuestions = 7;
+            var form = document.getElementById("lyrikTest");
+
+            for (var i = 0; i < totalQuestions; i++) {
+                var question = form.querySelectorAll(`input[name="q${i+1}"]:checked`);
+                if (question.length > 0 && question[0].value === "1") {
+                    score++;
+                    question[0].parentElement.classList.add("correct");
+                } else if (question.length > 0) {
+                    question[0].parentElement.classList.add("incorrect");
+                }
+            }
+
+            // Ergebnis anzeigen
+            var results = document.getElementById("results");
+            if (score === totalQuestions) {
+                results.textContent = `Perfekt! Du hast ${score} von ${totalQuestions} Punkten. Du kennst dich in der Lyrik sehr gut aus!`;
+                results.classList.add("positiveEffect");
+            } else if (score >= totalQuestions * 0.7) {
+                results.textContent = `Gut gemacht! Du hast ${score} von ${totalQuestions} Punkten. Du weißt schon einiges über Lyrik.`;
+                results.classList.add("positiveEffect");
+            } else {
+                results.textContent = `Du hast ${score} von ${totalQuestions} Punkten. Es lohnt sich, noch mehr über Lyrik zu lernen. 😊`;
+                results.classList.add("encouragingEffect");
+            }
+        }
+    </script>
+
+</body>
+</html>
